@@ -66,11 +66,11 @@ def make_text(chains):
         if len(text_string) > 140:
             text_string = old_text_string
             break
-
-        # Saves our current string as our old_text_string 
-        # which is within 140 characters, before trying to add
-        # another word.
-        old_text_string = text_string
+        else:
+            # Saves our current string as our old_text_string 
+            # which is within 140 characters, before trying to add
+            # another word.
+            old_text_string = text_string
 
     return text_string
 
