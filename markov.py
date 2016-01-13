@@ -76,6 +76,8 @@ def make_text(chains):
 
 
 def tweet(chains):
+    """Tweets a Markov text to our twitter handle: @AnnieChachiBot"""
+
     # Use Python os.environ to get at environmental variables
     # Note: you must run `source secrets.sh` before running this file
     # to make sure these environmental variables are set.
@@ -92,15 +94,17 @@ def tweet(chains):
     status = api.PostUpdate(make_text(chains))
     print status.text
 
+    tweet_again()
+
     
 def tweet_again():    
+    """Asks if user wants to tweet again."""
 
-    while True:
-        tweet_again_answer = raw_input("Press any key to tweet again [q to quit] > ")
-        if tweet_again_answer == 'q':
-            break
-        else:
-            tweet(chains)
+    tweet_again_answer = raw_input("Press any key to tweet again [q to quit] > ")
+    if tweet_again_answer == 'q':
+        return
+    else:    
+        tweet(chains)
 
 
 # Get the filenames from the user through a command line prompt, ex:
