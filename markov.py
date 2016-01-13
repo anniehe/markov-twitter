@@ -45,6 +45,8 @@ def make_text(chains):
 
     key = choice(chains.keys())
     words = [key[0], key[1]]
+    old_text_string = ""
+
     while key in chains:
         # Keep looping until we have a key that isn't in the chains
         # (which would mean it was the end of our original text)
@@ -56,14 +58,28 @@ def make_text(chains):
         words.append(word)
         key = (key[1], word)
 
-    return " ".join(words)
+        text_string = " ".join(words)
+        
+        # Check to see if our text_string exceeds 140 characters.
+        # If it exceeds 140, revert to last iteration of the while loop
+        # (saved as old_text_string).
+        if len(text_string) > 140:
+            text_string = old_text_string
+            break
+
+        # Saves our current string as our old_text_string 
+        # which is within 140 characters, before trying to add
+        # another word.
+        old_text_string = text_string
+
+    return text_string
 
 
 def tweet(chains):
     # Use Python os.environ to get at environmental variables
     # Note: you must run `source secrets.sh` before running this file
     # to make sure these environmental variables are set.
-    pass
+    make_text(chains)
 
 # Get the filenames from the user through a command line prompt, ex:
 # python markov.py green-eggs.txt shakespeare.txt
