@@ -99,6 +99,7 @@ def make_text(chains, n):
     # And add the random word to create a new key link, which is converted back to a tuple.
     # Finally, we combine all words in our list to make a long string (Markov text!)
     old_text_string = ""
+    
     while link in chains:
         random_word = choice(chains[link])
         link_list.append(random_word)
@@ -109,17 +110,19 @@ def make_text(chains, n):
         
         text_string = " ".join(link_list)
 
-        # Check to see if our text_string exceeds 140 characters.
-        # If it exceeds 140, revert to last iteration of the while loop
+        # Check to see if our text_string exceeds 140 characters, including room for hashtag.
+        # If it exceeds that limit, revert to last iteration of the while loop
         # (saved as old_text_string).
-        if len(text_string) > 140:
+        if len(text_string) > 140 - 13:
             text_string = old_text_string
             break
         else:
             # Saves our current string as our old_text_string 
-            # which is within 140 characters, before trying to add
-            # another word.
+            # which is within character limit, before trying to add another word.
             old_text_string = text_string
+
+    # Adding #Hack13right hashtag to each tweet.
+    text_string = text_string + " #Hack13right" 
 
     return text_string
 
